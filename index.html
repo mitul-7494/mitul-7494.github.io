@@ -1,49 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>TO-DO LIST</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-    <div class="main">
-        <div class="container">
-            <input class="display" type="text" id="inp" name="ip" value="">
-            <br>
-            <button class="btn" id="(" onclick='pressed("(");this.blur();sound();'>(</button>
-            <button class="btn" id=")" onclick='pressed(")");this.blur();sound();'>)</button>
-            <button class="btn" id="c" onclick='clear_display();this.blur();sound();'>C</button>
-            <button class="btn backspace" id="Backspace" onclick='del_last_elem();this.blur();sound();'>backspace</button>
-            <br>
-            <button class="btn" id="7" onclick='pressed("7");this.blur();sound();'>7</button>
-            <button class="btn" id="8" onclick='pressed("8");this.blur();sound();'>8</button>
-            <button class="btn" id="9" onclick='pressed("9");this.blur();sound();'>9</button>
-            <button class="btn" id="+" onclick='pressed("+");this.blur();sound();'>+</button>
-            <button class="btn" id="-" onclick='pressed("-");this.blur();sound();'>-</button>
-            <br>
-            <button class="btn" id="4" onclick='pressed("4");this.blur();sound();'>4</button>
-            <button class="btn" id="5" onclick='pressed("5");this.blur();sound();'>5</button>
-            <button class="btn" id="6" onclick='pressed("6");this.blur();sound();'>6</button>
-            <button class="btn" id="x" onclick='pressed("*");this.blur();sound();'>x</button>
-            <button class="btn" id="/" onclick='pressed("/");this.blur();sound();'>/</button>
-            <br>
-            <button class="btn" id="1" onclick='pressed("1");this.blur();sound();'>1</button>
-            <button class="btn" id="2" onclick='pressed("2");this.blur();sound();'>2</button>
-            <button class="btn" id="3" onclick='pressed("3");this.blur();sound();'>3</button>
-            <button class="btn" id="^" onclick='pressed("**");this.blur();sound();'>^</button>
-            <button class="btn" id="%" onclick='pressed("%");this.blur();sound();'>%</button>
-            <br>
-            <button class="btn" id="." onclick='pressed(".");this.blur();sound();'>.</button>
-            <button class="btn" id="0" onclick='pressed("0");this.blur();sound();'>0</button>
-            <button class="btn" onclick='pressed("00");this.blur();sound();'>00</button>
-            <button class="btn backspace" id="Enter" onclick='display_answer();this.blur();sound();'>Enter</button>
-        </div>
-    </div>
-    <script src="./script.js"></script>
+    <header>
+        <h1>Task List</h1>
+        <form id="input-form">
+            <input type="text" id="input-box" placeholder="Write your task here.">
+            <input type="submit" id="submit-btn" value="Add Task">
+        </form>
+    </header>
+    <main>
+        <section class="task-list">
+            <h2>Tasks :</h2>
+            <div id="tasks">
+                <!-- <div class="task">
+                    <div class="content">
+                        <input type="text" class="text" value="Random yet" readonly>
+                    </div>
+                    <div class="actions">
+                        <button class="edit">Edit</button><button class="delete">Delete</button>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+    </main>
+    <script src="main.js"></script>
 </body>
 
 </html>
