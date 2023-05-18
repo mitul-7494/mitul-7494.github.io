@@ -15,10 +15,12 @@ function getResults() {
     //starts searching from the second input
     if (search.length > 1) {
         let counter = 0; // counts to 10
+        let words = search.split(" ");
+        for(let word of words)
         for (let x of laws) {
             if (counter < 10) {
                 //checks for similarities
-                if (x.toLowerCase().includes(search.toLowerCase())) {
+                if (x.toLowerCase().includes(word.toLowerCase())) {
                     //populates the suggestion div
                     element("search-results").innerHTML +=
                         "<div class='search-item' onclick='displayData(\"" +
@@ -30,7 +32,7 @@ function getResults() {
                     counter++;
                 }
             }
-            if (x.toLowerCase().includes(search.toLowerCase())) {
+            if (x.toLowerCase().includes(word.toLowerCase())) {
                 let y = x.split(" . ");
                 let str = "<tr><td id=\"col\">" + y[0] + "</td><td id=\"col2\">" + y[1] + "</td></tr>";
                 allSearchData += str;
