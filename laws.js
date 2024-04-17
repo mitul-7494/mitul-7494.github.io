@@ -1,7 +1,8 @@
-function hello(x){
+function hello(PersonName, FromDate, ToDate){
     console.log("hello");
-    console.log(x);
-    document.querySelector("#_FOpt1\\:_FOr1\\:0\\:_FONSr2\\:0\\:_FOTr1\\:0\\:r1\\:0\\:AP1\\:qryId1\\:value10\\:\\:content").value = x
+    document.querySelector('[aria-label=" Person Number"]').value = PersonName;
+    document.querySelectorAll('[aria-label="dd-mmm-yyyy"]')[0].value = FromDate;
+    document.querySelectorAll('[aria-label="dd-mmm-yyyy"]')[1].value = ToDate;
 };
 
 
