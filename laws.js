@@ -1,7 +1,7 @@
 function hello(x){
     console.log("hello");
     console.log(x);
-    document.querySelector("#_FOpt1\\:_FOr1\\:0\\:_FONSr2\\:0\\:_FOTr1\\:1\\:r1\\:1\\:AP1\\:qryId1\\:value10\\:\\:content").value = x
+    document.querySelector("#_FOpt1\\:_FOr1\\:0\\:_FONSr2\\:0\\:_FOTr1\\:0\\:r1\\:0\\:AP1\\:qryId1\\:value10\\:\\:content").value = x
 };
 
 
