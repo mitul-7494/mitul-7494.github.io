@@ -1,3 +1,9 @@
+function hello(){
+    console.log("hello");
+};
+
+
+
 const laws=[
     
 "Section 1 . (Introduction) Title and extant of operation of the Code",
