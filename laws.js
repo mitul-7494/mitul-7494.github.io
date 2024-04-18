@@ -6,16 +6,19 @@ function hello(PersonName, FromDate, ToDate){
 };
 
 function clickWithDelay(selector) {
-    setTimeout(() => {
-        document.querySelector(selector).click();
-    }, 1500); // Delay for 2 seconds (2000 milliseconds)
+    return new Promise(resolve => {
+        setTimeout(() => {
+            document.querySelector(selector).click();
+            resolve();
+        }, 1500);
+    });
 }
 
 function action(){
-    clickWithDelay('[alt="Create"]');
-    clickWithDelay('[id*=":personName2Id::lovIconId"]');
-    clickWithDelay('[id*=":personName2Id::dropdownPopup::popupsearch"]');
-    clickWithDelay('[id*=":personName2Id::_afrLovInternalQueryId::mode"]');
+    clickWithDelay('[alt="Create"]')
+    .then(() => clickWithDelay('[id*=":personName2Id::lovIconId"]'))
+    .then(() => clickWithDelay('[id*=":personName2Id::dropdownPopup::popupsearch"]'))
+    .then(() => clickWithDelay('[id*=":personName2Id::_afrLovInternalQueryId::mode"]'));
 }
 
 
