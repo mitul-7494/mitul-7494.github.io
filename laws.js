@@ -5,6 +5,42 @@ function hello(PersonName, FromDate, ToDate){
     document.querySelectorAll('[aria-label="dd-mmm-yyyy"]')[1].value = ToDate;
 };
 
+async function performActions() {
+    try {
+        // Click "Create"
+        await page.evaluate(() => {
+            document.querySelector('[alt="Create"]').parentElement.click();
+        });
+
+        // Wait for the dropdown icon to appear
+        await page.waitForSelector('[id*=":personName2Id::lovIconId"]', { timeout: 5000 });
+
+        // Click the dropdown icon
+        await page.evaluate(() => {
+            document.querySelector('[id*=":personName2Id::lovIconId"]').click();
+        });
+
+        // Wait for the search button to appear
+        await page.waitForSelector('[id*=":personName2Id::dropdownPopup::popupsearch"]', { timeout: 5000 });
+
+        // Click the search button
+        await page.evaluate(() => {
+            document.querySelector('[id*=":personName2Id::dropdownPopup::popupsearch"]').click();
+        });
+
+        // Wait for the "Advance" button to appear
+        await page.waitForSelector('[id*=":personName2Id::_afrLovInternalQueryId::mode"]', { timeout: 5000 });
+
+        // Click the "Advance" button
+        await page.evaluate(() => {
+            document.querySelector('[id*=":personName2Id::_afrLovInternalQueryId::mode"]').click();
+        });
+
+        // Continue with other actions if needed
+    } catch (error) {
+        return "F"
+    }
+}
 
 
 const laws=[
