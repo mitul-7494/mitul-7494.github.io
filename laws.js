@@ -22,6 +22,16 @@ function action(){
 }
 
 
+function getDifferenceInDays(dateString1, dateString2) {
+    const date1 = new Date(dateString1);
+    const date2 = new Date(dateString2);
+    const differenceInMs = Math.abs(date1 - date2);
+    var differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24)) + 1
+    const remdayweek = differenceInDays % 7 == 0 ? 0 : 1;
+    differenceInDays = Math.floor(differenceInDays / 7)
+    return differenceInDays + remdayweek;
+}
+
 
 
 // async function performActions() {
