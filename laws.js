@@ -106,7 +106,7 @@ function ManipulateData(excelDataString){
     let Task = excelData[1];
     let expanditureTask = expenditureMap[excelData[2]];
     let excelHour = excelData.slice(3,10);
-    if(currentTimeCardState["NumberOfAT"] > 0){
+    if(currentTimeCardState["NumberOfAT"] > 0 && expanditureTask != "4"){
         let absTypeDict = currentTimeCardState["AbsentType"];
         for(let absType in absTypeDict){
             let initHour = ['', '', '', '', '', '', ''];
