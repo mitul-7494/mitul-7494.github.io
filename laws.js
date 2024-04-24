@@ -95,3 +95,31 @@ function SetCardState(){
         currentTimeCardState["AbsentType"] = dict;
     }
 }
+
+function IsEmptyHourList(arr){
+    return arr.join('').length == 0;
+}
+
+function ManipulateData(excelDataString){
+    let excelData = excelDataString.split("&");
+    let Project = excelData[0];
+    let Task = excelData[1];
+    let expanditureTask = expenditureMap[excelData[2]];
+    let excelHour = excelData.slice(3,10);
+    if(currentTimeCardState["NumberOfAT"] > 0){
+        let absTypeDict = currentTimeCardState["AbsentType"];
+        for(let absType in absTypeDict){
+            let initHour = ['', '', '', '', '', '', ''];
+            let conflictingHour = absTypeDict[absType];
+            for(let i = currentTimeCardState["startingDay"]; i<=currentTimeCardState["endingDay"]; i++){
+                if(conflictingHour[i]){
+                    initHour[i] = excelHour[i];
+                    excelHour[i] = '';
+                }
+            }
+            if(!IsEmptyHourList(initHour)){
+                console.log(Project, Task, absType, initHour);
+            }
+        }
+    }
+}
