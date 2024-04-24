@@ -101,7 +101,7 @@ function IsEmptyHourList(arr){
 }
 
 function ManipulateData(excelDataString){
-    let excelData = excelDataString.split("&");
+    let excelData = excelDataString.split("~");
     let Project = excelData[0];
     let Task = excelData[1];
     let expanditureTask = expenditureMap[excelData[2]];
@@ -121,5 +121,8 @@ function ManipulateData(excelDataString){
                 console.log(Project, Task, absType, initHour);
             }
         }
+    }
+    if(!IsEmptyHourList(excelHour)){
+        console.log(Project, Task, expanditureTask, excelHour);
     }
 }
