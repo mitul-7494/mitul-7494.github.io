@@ -71,7 +71,8 @@ var currentTimeCardState = {
 function SetCardState(){
     let numberOfAT = document.getElementsByClassName('xwn').length - 5;
     let [startingDate, endingDate] = document.querySelector("[id$=':tcDetails'] > table > tbody > tr > td.x1b0").innerText.split(" : ")[1].split(" - ");
-    let startingDay, endingDay = getDayOfWeek(startingDate), getDayOfWeek(endingDate);
+    let startingDay = getDayOfWeek(startingDate);
+    let endingDay = getDayOfWeek(endingDate);
     currentTimeCardState["NumberOfAT"] = numberOfAT;
     currentTimeCardState["startingDay"] = startingDay;
     currentTimeCardState["endingDay"] = endingDay;
