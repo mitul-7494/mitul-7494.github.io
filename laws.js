@@ -77,6 +77,7 @@ function SetCardState(){
     currentTimeCardState["startingDay"] = startingDay;
     currentTimeCardState["endingDay"] = endingDay;
     if(numberOfAT == 0){
+        currentTimeCardState["AbsentType"] = {};
         return;
     }else{
         let dict = {};
