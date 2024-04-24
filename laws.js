@@ -5,14 +5,6 @@ function hello(PersonName, FromDate, ToDate){
     document.querySelectorAll('[aria-label="dd-mmm-yyyy"]')[1].value = ToDate;
 };
 
-function clickWithDelay(selector) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            document.querySelector(selector).click();
-            resolve();
-        }, 1500);
-    });
-}
 
 function action(){
     clickWithDelay('[alt="Create"]')
@@ -78,12 +70,26 @@ var currentTimeCardState = {
 
 function SetCardState(){
     let numberOfAT = document.getElementsByClassName('xwn').length - 5;
+    let [startingDate, endingDate] = document.querySelector("[id$=':tcDetails'] > table > tbody > tr > td.x1b0").innerText.split(" : ")[1].split(" - ");
+    let startingDay, startingDay = getDayOfWeek(startingDate), getDayOfWeek(endingDate);
     currentTimeCardState["NumberOfAT"] = numberOfAT;
+    currentTimeCardState["startingDay"] = startingDay;
+    currentTimeCardState["endingDay"] = endingDay;
     if(numberOfAT == 0){
         return;
     }else{
+        let dict = {};
         for(let i=0;i<numberOfAT;i++){
-            
+            let dayArr = [false, false, false, false, false, false, false];
+            for(let j=startingDay+1;j<=endingDay+1;j+dsx+){
+                let hourString = document.querySelector(`[id*='${i}\\:m${j}::content']`).innerText;
+                if(hourString != ""){
+                    dayArr[j-1] = true;
+                }
+                let key = expenditureMap[document.querySelector(`[id*='0\\:socMatrixAttributeNumber6\\:\\:content']`).innerText];
+                dict[key] = dayArr;
+            }
         }
+        currentTimeCardState["AbsentType"] = dict;
     }
 }
