@@ -61,11 +61,12 @@ var expenditureMap = {
 }
 
 
-var currentTimeCardState = {
+var cardState = {
     "AbsentType" : {},
     "NumberOfAT" : 0,
     "startingDay" : 0,
     "endingDay" : 6,
+    "rowNo" : 1
 }
 
 function SetCardState(){
@@ -73,11 +74,12 @@ function SetCardState(){
     let [startingDate, endingDate] = document.querySelector("[id$=':tcDetails'] > table > tbody > tr > td.x1b0").innerText.split(" : ")[1].split(" - ");
     let startingDay = getDayOfWeek(startingDate);
     let endingDay = getDayOfWeek(endingDate);
-    currentTimeCardState["NumberOfAT"] = numberOfAT;
-    currentTimeCardState["startingDay"] = startingDay;
-    currentTimeCardState["endingDay"] = endingDay;
+    cardState["NumberOfAT"] = numberOfAT;
+    cardState["rowNo"] = numberOfAT+1;
+    cardState["startingDay"] = startingDay;
+    cardState["endingDay"] = endingDay;
     if(numberOfAT == 0){
-        currentTimeCardState["AbsentType"] = {};
+        cardState["AbsentType"] = {};
         return;
     }else{
         let dict = {};
@@ -92,7 +94,7 @@ function SetCardState(){
             let key = expenditureMap[document.querySelector(`[id*='0\\:socMatrixAttributeNumber6\\:\\:content']`).innerText];
             dict[key] = dayArr;
         }
-        currentTimeCardState["AbsentType"] = dict;
+        cardState["AbsentType"] = dict;
     }
 }
 
@@ -106,12 +108,12 @@ function ManipulateData(excelDataString){
     let Task = excelData[1];
     let expanditureTask = expenditureMap[excelData[2]];
     let excelHour = excelData.slice(3,10);
-    if(currentTimeCardState["NumberOfAT"] > 0 && expanditureTask != "4"){
-        let absTypeDict = currentTimeCardState["AbsentType"];
+    if(cardState["NumberOfAT"] > 0 && expanditureTask != "4"){
+        let absTypeDict = cardState["AbsentType"];
         for(let absType in absTypeDict){
             let initHour = ['', '', '', '', '', '', ''];
             let conflictingHour = absTypeDict[absType];
-            for(let i = currentTimeCardState["startingDay"]; i<=currentTimeCardState["endingDay"]; i++){
+            for(let i = cardState["startingDay"]; i<= cardState["endingDay"]; i++){
                 if(conflictingHour[i]){
                     initHour[i] = excelHour[i];
                     excelHour[i] = '';
