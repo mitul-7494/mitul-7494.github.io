@@ -82,7 +82,7 @@ function SetCardState(){
         let dict = {};
         for(let i=0;i<numberOfAT;i++){
             let dayArr = [false, false, false, false, false, false, false];
-            for(let j=startingDay+1;j<=endingDay+1;j+dsx+){
+            for(let j=startingDay+1;j<=endingDay+1;j++){
                 let hourString = document.querySelector(`[id*='${i}\\:m${j}::content']`).innerText;
                 if(hourString != ""){
                     dayArr[j-1] = true;
