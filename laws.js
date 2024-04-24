@@ -88,9 +88,9 @@ function SetCardState(){
                 if(hourString != ""){
                     dayArr[j-1] = true;
                 }
-                let key = expenditureMap[document.querySelector(`[id*='0\\:socMatrixAttributeNumber6\\:\\:content']`).innerText];
-                dict[key] = dayArr;
             }
+            let key = expenditureMap[document.querySelector(`[id*='0\\:socMatrixAttributeNumber6\\:\\:content']`).innerText];
+            dict[key] = dayArr;
         }
         currentTimeCardState["AbsentType"] = dict;
     }
