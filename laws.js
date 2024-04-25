@@ -198,10 +198,13 @@ function selectTask(index, task) {
 }
 
 function setHoursData(index, data) {
+    console.log("herwdf");
     let counter = 1;
     for(let i = 0; i <= 6; i++, counter++) {
         document.querySelectorAll(`input[id*="\\:m${counter}\\:\\:content"]`)[index].value = data[i];
+        console.log("count", counter ,"data",  data[i], "index", index);
     }
+    console.log("comp");
 }
 
 function SetExpend(index, type) {
@@ -235,29 +238,21 @@ async function FillRow(project, task, hourList, exType){
     let index = cardState["rowNo"];
     console.log("here0");
     SetProject(index, project)
-    // .then(() => {
-    //     console.log("here0.5");
-    //     return delay(1500);
-    // })
     .then(() => {
         console.log("here1");
         return selectTask(index, task);
     })
-    // .then(() => {
-    //     console.log("here1.5");
-    //     return delay(1500);
-    // })
     .then(() => {
         console.log("here2");
         return SetExpend(index, exType);
     })
-    // .then(() => {
-    //     console.log("here2.5");
-    //     return delay(1500);
-    // })
+    .then(() => {
+        return delay(1500);
+    })
     .then(() => {
         console.log("here3");
         setHoursData(index, hourList);
+        console.log("dasfasdfa")
     }).catch((error) => {
         throw error;
     });
