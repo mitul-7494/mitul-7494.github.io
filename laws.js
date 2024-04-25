@@ -86,7 +86,7 @@ function SetCardState(){
         for(let i=0;i<numberOfAT;i++){
             let dayArr = [false, false, false, false, false, false, false];
             for(let j=startingDay+1;j<=endingDay+1;j++){
-                let hourString = document.getElementsByClassName('x1u p_AFReadOnly')[(i*(endingDay-startingDay+1))+(j-1)];
+                let hourString = document.getElementsByClassName('x1u p_AFReadOnly')[(i*(endingDay-startingDay+1))+(j-1)].innerText;
                 if(hourString != ""){
                     dayArr[j-1] = true;
                 }
