@@ -111,7 +111,7 @@ function delay(milsec){
 }
 
 
-function ManipulateData(excelDataString){
+async function ManipulateData(excelDataString){
     let excelData = excelDataString.split("~");
     let Project = excelData[0];
     let Task = excelData[1];
@@ -129,12 +129,12 @@ function ManipulateData(excelDataString){
                 }
             }
             if(!IsEmptyHourList(initHour)){
-                FillRow(Project,Task, initHour, absType);
+                await FillRow(Project,Task, initHour, absType);
             }
         }
     }
     if(!IsEmptyHourList(excelHour)){
-        FillRow(Project, Task, excelHour, absType);
+        await FillRow(Project, Task, excelHour, absType);
     }
 }
 
@@ -197,7 +197,7 @@ function selectTask(index, task) {
     });
 }
 
-function setHoursData(index, data) {
+async function setHoursData(index, data) {
     console.log("herwdf");
     let counter = 1;
     for(let i = 0; i <= 6; i++, counter++) {
@@ -235,25 +235,30 @@ function SetExpend(index, type) {
 
 
 async function FillRow(project, task, hourList, exType){
-    let index = cardState["rowNo"];
-    console.log("here0");
-    SetProject(index, project)
-    .then(() => {
-        console.log("here1");
-        return selectTask(index, task);
-    })
-    .then(() => {
-        console.log("here2");
-        return SetExpend(index, exType);
-    })
-    .then(() => {
-        return delay(1500);
-    })
-    .then(() => {
-        console.log("here3");
-        setHoursData(index, hourList);
-        console.log("dasfasdfa")
-    }).catch((error) => {
-        throw error;
+    return new Promise((resolve, reject) => {
+        let index = cardState["rowNo"];
+        console.log("here0");
+        SetProject(index, project)
+        .then(() => {
+            console.log("here1");
+            return selectTask(index, task);
+        })
+        .then(() => {
+            console.log("here2");
+            return SetExpend(index, exType);
+        })
+        .then(() => {
+            return delay(1500);
+        })
+        .then(async () => {
+            console.log("here3");
+            await setHoursData(index, hourList);
+            console.log("dasfasdfa");
+            cardState["rowNo"] = index+1;
+            resolve();
+        }).catch((error) => {
+            reject();
+            throw error;
+        });
     });
 }
