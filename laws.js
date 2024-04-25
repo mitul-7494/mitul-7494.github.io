@@ -198,9 +198,9 @@ function selectTask(index, task) {
 }
 
 async function setHoursData(index, data) {
-    console.log("herwdf");
+    console.log("starting setting hours");
     let counter = 1;
-    for(let i = 0; i <= 6; i++, counter++) {
+    for(let i = cardState["startingDay"]; i <= cardState["endingDay"]; i++, counter++) {
         document.querySelectorAll(`input[id*="\\:m${counter}\\:\\:content"]`)[index].value = data[i];
         console.log("count", counter ,"data",  data[i], "index", index);
     }
