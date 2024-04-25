@@ -66,7 +66,7 @@ var cardState = {
     "NumberOfAT" : 0,
     "startingDay" : 0,
     "endingDay" : 6,
-    "rowNo" : 1
+    "rowNo" : 0
 }
 
 function SetCardState(){
@@ -75,7 +75,7 @@ function SetCardState(){
     let startingDay = getDayOfWeek(startingDate);
     let endingDay = getDayOfWeek(endingDate);
     cardState["NumberOfAT"] = numberOfAT;
-    cardState["rowNo"] = numberOfAT+1;
+    cardState["rowNo"] = 0;
     cardState["startingDay"] = startingDay;
     cardState["endingDay"] = endingDay;
     if(numberOfAT == 0){
@@ -126,5 +126,104 @@ function ManipulateData(excelDataString){
     }
     if(!IsEmptyHourList(excelHour)){
         console.log(Project, Task, expanditureTask, excelHour);
+    }
+}
+
+
+function SetProject(index, project) {
+    return new Promise((resolve, reject) => {
+        waitForElement(`[id*='\\:socMatrixAttributeNumber2\\:\\:lovIconId']`).then(() => {
+            document.querySelectorAll(`[id*='\\:socMatrixAttributeNumber2\\:\\:lovIconId']`)[index].click();
+            return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
+        }).then(() => {
+            document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click();
+            return waitForElement("[id*='_afrLovInternalQueryId\\:\\:mode']");
+        }).then(() => {
+            document.querySelector("[id*='_afrLovInternalQueryId\\:\\:mode']").click();
+            return waitForElement('[id*="_afrLovInternalQueryId\\:operator0\\:\\:pop"] > li:nth-child(6)');
+        }).then(() => {
+            document.querySelector('[id*="_afrLovInternalQueryId\\:operator0\\:\\:pop"] > li:nth-child(6)').click();
+            document.querySelector('input[aria-label=" Display Value"]').value = project;
+            document.querySelector("[id*='_afrLovInternalQueryId\\:\\:search']").click(); // Click search
+            return waitForElement('[id*="socMatrixAttributeNumber2_afrLovInternalTableId::db"] > table > tbody > tr');
+        }).then(() => {
+            document.querySelectorAll('[id*="socMatrixAttributeNumber2_afrLovInternalTableId::db"] > table > tbody > tr')[0].click();
+            document.querySelector("[id*='\\:lovDialogId\\:\\:ok']").click();
+            resolve(); // Resolve the Promise when all operations are completed
+        }).catch((error) => {
+            reject(error); // Reject the Promise if there's an error
+        });
+    });
+}
+
+
+function selectTask(index, task) {
+    return new Promise((resolve, reject) =>{
+        waitForElement(`[id*='\\:socMatrixAttributeNumber4\\:\\:lovIconId']`).then(() => {
+            document.querySelectorAll(`[id*='\\:socMatrixAttributeNumber4\\:\\:lovIconId']`)[index].click();
+            return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
+        }).then(() => {
+            document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click(); // Click popup search
+            return waitForElement("[id*='_afrLovInternalQueryId\\:\\:mode']");
+        }).then(() => {
+            document.querySelector("[id*='_afrLovInternalQueryId\\:\\:mode']").click();
+            return waitForElement('[id*="_afrLovInternalQueryId\\:operator0\\:\\:pop"] > li:nth-child(6)');
+        }).then(() => {
+            document.querySelector('[id*="_afrLovInternalQueryId\\:operator0\\:\\:pop"] > li:nth-child(6)').click();
+            document.querySelector('input[aria-label=" Display Value"]').value = task;
+            document.querySelector("[id*='_afrLovInternalQueryId\\:\\:search']").click(); // Click search
+            return waitForElement("[id*='_afrLovInternalTableId\\:\\:db'] > table > tbody > tr > td:nth-child(2) > div > table > tbody > tr > td");
+        }).then(() => {
+            document.querySelector("[id*='_afrLovInternalTableId\\:\\:db'] > table > tbody > tr > td:nth-child(2) > div > table > tbody > tr > td").click();
+            document.querySelector("[id*='\\:lovDialogId\\:\\:ok']").click();
+            resolve(); // Resolve the Promise when all operations are completed
+        }).catch((error) => {
+            console.error("Error:", error);
+            reject(error); // Reject the Promise if there's an error
+        });
+    });
+}
+
+function setHoursData(index, data) {
+    let counter = 1;
+    for(let i = 0; i <= 6; i++, counter++) {
+        document.querySelectorAll(`input[id*="\\:m${counter}\\:\\:content"]`)[index].value = data[i];
+    }
+}
+
+function SetExpend(index, type) {
+    return new Promise((resolve, reject) =>{
+        waitForElement('[title="Search: Expenditure Type"]').then(() => {
+            document.querySelectorAll('[title="Search: Expenditure Type"]')[index].click();
+            return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
+        }).then(() => {
+            document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click();
+            return waitForElement("[id*='_afrLovInternalQueryId\\:\\:search']");
+        }).then(() => {
+            document.querySelector("[id*='_afrLovInternalQueryId\\:\\:search']").click();
+            return waitForElement('[id*="\\:socMatrixAttributeChar1_afrtablegridcell\\:\\:c"] > div > div:nth-child(2) > table > tbody');
+        }).then(() => {
+            document.querySelector('[id*="\:socMatrixAttributeChar1_afrtablegridcell\:\:c"] > div > div:nth-child(2) > table > tbody').querySelector(`tr[_afrrk='${type}']`).click();
+            return waitForElement("[id*='socMatrixAttributeChar1\\:\\:lovDialogId\\:\\:ok']");
+        }).then(() => {
+            document.querySelector('[id*="socMatrixAttributeChar1\\:\\:lovDialogId\\:\\:ok"]').click();
+            resolve();
+        }).catch((error) => {
+            console.error("Error:", error);
+            reject(error);
+        });
+    });
+}
+
+
+async function FillRow(project, task, hourList, exType){
+    let index = cardState["rowNo"];
+    try {
+        await SetProject(index, project);
+        await selectTask(index, task);
+        await SetExpend(index, exType);
+        setHoursData(index, hourList);
+    } catch (error) {
+        throw error;
     }
 }
