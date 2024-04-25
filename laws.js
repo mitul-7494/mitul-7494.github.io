@@ -134,7 +134,7 @@ async function ManipulateData(excelDataString){
         }
     }
     if(!IsEmptyHourList(excelHour)){
-        await FillRow(Project, Task, excelHour, absType);
+        await FillRow(Project, Task, excelHour, expanditureTask);
     }
 }
 
