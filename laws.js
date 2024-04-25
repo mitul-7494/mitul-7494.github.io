@@ -102,6 +102,15 @@ function IsEmptyHourList(arr){
     return arr.join('').length == 0;
 }
 
+function delay(milsec){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve();
+        }, milsec);
+    })
+}
+
+
 function ManipulateData(excelDataString){
     let excelData = excelDataString.split("~");
     let Project = excelData[0];
@@ -134,6 +143,8 @@ function SetProject(index, project) {
     return new Promise((resolve, reject) => {
         waitForElement(`[id*='\\:socMatrixAttributeNumber2\\:\\:lovIconId']`).then(() => {
             document.querySelectorAll(`[id*='\\:socMatrixAttributeNumber2\\:\\:lovIconId']`)[index].click();
+            return waitForElement("[id*=':socMatrixAttributeNumber2lovPopupId\\:\\:popup-container']");
+        }).then(() => {
             return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
         }).then(() => {
             document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click();
@@ -161,6 +172,8 @@ function selectTask(index, task) {
     return new Promise((resolve, reject) =>{
         waitForElement(`[id*='\\:socMatrixAttributeNumber4\\:\\:lovIconId']`).then(() => {
             document.querySelectorAll(`[id*='\\:socMatrixAttributeNumber4\\:\\:lovIconId']`)[index].click();
+            return waitForElement("[id*=':socMatrixAttributeNumber4lovPopupId\\:\\:popup-container']");
+        }).then(() => {
             return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
         }).then(() => {
             document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click(); // Click popup search
@@ -195,6 +208,8 @@ function SetExpend(index, type) {
     return new Promise((resolve, reject) =>{
         waitForElement('[title="Search: Expenditure Type"]').then(() => {
             document.querySelectorAll('[title="Search: Expenditure Type"]')[index].click();
+            return waitForElement("[id*=':socMatrixAttributeChar1lovPopupId\\:\\:popup-container']");
+        }).then(() => {
             return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
         }).then(() => {
             document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click();
@@ -218,12 +233,32 @@ function SetExpend(index, type) {
 
 async function FillRow(project, task, hourList, exType){
     let index = cardState["rowNo"];
-    try {
-        await SetProject(index, project);
-        await selectTask(index, task);
-        await SetExpend(index, exType);
+    console.log("here0");
+    SetProject(index, project)
+    // .then(() => {
+    //     console.log("here0.5");
+    //     return delay(1500);
+    // })
+    .then(() => {
+        console.log("here1");
+        return selectTask(index, task);
+    })
+    // .then(() => {
+    //     console.log("here1.5");
+    //     return delay(1500);
+    // })
+    .then(() => {
+        console.log("here2");
+        return SetExpend(index, exType);
+    })
+    // .then(() => {
+    //     console.log("here2.5");
+    //     return delay(1500);
+    // })
+    .then(() => {
+        console.log("here3");
         setHoursData(index, hourList);
-    } catch (error) {
+    }).catch((error) => {
         throw error;
-    }
+    });
 }
