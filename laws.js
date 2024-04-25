@@ -233,6 +233,11 @@ function SetExpend(index, type) {
     });
 }
 
+async function AddNewRowAtLast() {
+    Array.from(document.getElementsByClassName('xwn')).slice(-1)[0].click();
+    document.querySelector('img[id*="ctb1\\:\\:icon"]').click();
+}
+
 
 async function FillRow(project, task, hourList, exType){
     return new Promise((resolve, reject) => {
@@ -255,6 +260,8 @@ async function FillRow(project, task, hourList, exType){
             await setHoursData(index, hourList);
             console.log("dasfasdfa");
             cardState["rowNo"] = index+1;
+            await AddNewRowAtLast();
+            await delay(1000);
             resolve();
         }).catch((error) => {
             reject();
