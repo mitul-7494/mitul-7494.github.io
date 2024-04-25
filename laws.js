@@ -143,11 +143,11 @@ function SetProject(index, project) {
     return new Promise((resolve, reject) => {
         waitForElement(`[id*='\\:socMatrixAttributeNumber2\\:\\:lovIconId']`).then(() => {
             document.querySelectorAll(`[id*='\\:socMatrixAttributeNumber2\\:\\:lovIconId']`)[index].click();
-            return waitForElement("[id*=':socMatrixAttributeNumber2lovPopupId\\:\\:popup-container']");
-        }).then(() => {
             return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
         }).then(() => {
             document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click();
+            return waitForElement("[id*=':socMatrixAttributeNumber2lovPopupId\\:\\:popup-container']");
+        }).then(() => {
             return waitForElement("[id*='_afrLovInternalQueryId\\:\\:mode']");
         }).then(() => {
             document.querySelector("[id*='_afrLovInternalQueryId\\:\\:mode']").click();
@@ -172,11 +172,11 @@ function selectTask(index, task) {
     return new Promise((resolve, reject) =>{
         waitForElement(`[id*='\\:socMatrixAttributeNumber4\\:\\:lovIconId']`).then(() => {
             document.querySelectorAll(`[id*='\\:socMatrixAttributeNumber4\\:\\:lovIconId']`)[index].click();
-            return waitForElement("[id*=':socMatrixAttributeNumber4lovPopupId\\:\\:popup-container']");
-        }).then(() => {
             return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
         }).then(() => {
             document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click(); // Click popup search
+            return waitForElement("[id*=':socMatrixAttributeNumber4lovPopupId\\:\\:popup-container']");
+        }).then(() => {
             return waitForElement("[id*='_afrLovInternalQueryId\\:\\:mode']");
         }).then(() => {
             document.querySelector("[id*='_afrLovInternalQueryId\\:\\:mode']").click();
@@ -208,11 +208,11 @@ function SetExpend(index, type) {
     return new Promise((resolve, reject) =>{
         waitForElement('[title="Search: Expenditure Type"]').then(() => {
             document.querySelectorAll('[title="Search: Expenditure Type"]')[index].click();
-            return waitForElement("[id*=':socMatrixAttributeChar1lovPopupId\\:\\:popup-container']");
-        }).then(() => {
             return waitForElement("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']");
         }).then(() => {
             document.querySelector("[id*='\\:\\:dropdownPopup\\:\\:popupsearch']").click();
+            return waitForElement("[id*=':socMatrixAttributeChar1lovPopupId\\:\\:popup-container']");
+        }).then(() => {
             return waitForElement("[id*='_afrLovInternalQueryId\\:\\:search']");
         }).then(() => {
             document.querySelector("[id*='_afrLovInternalQueryId\\:\\:search']").click();
