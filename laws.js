@@ -86,12 +86,12 @@ function SetCardState(){
         for(let i=0;i<numberOfAT;i++){
             let dayArr = [false, false, false, false, false, false, false];
             for(let j=startingDay+1;j<=endingDay+1;j++){
-                let hourString = document.querySelector(`[id*='${i}\\:m${j-startingDay}::content']`).innerText;
+                let hourString = document.getElementsByClassName('x1u p_AFReadOnly')[(i*(endingDay-startingDay+1))+(j-1)];
                 if(hourString != ""){
                     dayArr[j-1] = true;
                 }
             }
-            let key = expenditureMap[document.querySelector(`[id*='0\\:socMatrixAttributeNumber6\\:\\:content']`).innerText];
+            let key = expenditureMap[document.querySelectorAll('.x2hi span[id$="socMatrixAttributeNumber6"]')[i].innerText];
             dict[key] = dayArr;
         }
         cardState["AbsentType"] = dict;
@@ -129,12 +129,12 @@ function ManipulateData(excelDataString){
                 }
             }
             if(!IsEmptyHourList(initHour)){
-                console.log(Project, Task, absType, initHour);
+                FillRow(Project,Task, initHour, absType);
             }
         }
     }
     if(!IsEmptyHourList(excelHour)){
-        console.log(Project, Task, expanditureTask, excelHour);
+        FillRow(Project, Task, excelHour, absType);
     }
 }
 
